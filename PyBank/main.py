@@ -7,3 +7,68 @@
 #The greatest decrease in profits (date and amount) over the entire period
 
 #source file to use is budget_data.csv
+
+#import os and csv modules
+import os
+import csv
+
+#set the source file path
+mypath = os.path.join('Resources', 'budget_data.csv')
+
+#open the file
+with open(mypath, encoding='UTF-8') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+
+    #store the header
+    csvheader = next(csvreader)
+    
+    #initialize some variables for value storage
+    months = 0
+    profitnloss = 0
+    avg_pnl_change = 0
+    pnl_list = []
+    
+
+    #loop through the rows to find values
+    for row in csvreader:
+        months = months +1 #gets the number of months
+        #add to profit and loss the value from the second column in the file
+        profitnloss = profitnloss + float(row[1])
+        #populate the list with values for profit and loss
+        pnl_list.append(float(row[1]))
+
+#create a list to hold differences in PNL from month to month
+pnl_differences = []
+#use a for loop to populate the above list with PNL changes
+for i in range(len(pnl_list)):
+    if i > 0: #ignore the first row because there is no previous value to compare to
+        pnldiff = pnl_list[i] - pnl_list[i-1] 
+        pnl_differences.append(pnldiff)
+        #print(pnl_list[i], i, pnldiff)
+
+#find average of the PNL changes
+def average(numbers):
+    length = len(numbers)
+    total = 0.00
+    for number in numbers:
+        total += number
+    return total/length
+
+#greatest increase
+grtincrease = max(pnl_differences)
+
+#greatest decrease
+grtdecrease = min(pnl_differences)
+
+#print results
+print("Financial Analysis")
+print("--------------------")    
+print(f"Total months: {months}")
+print(f"Total: {profitnloss}")
+print(f"Average Change: ", average(pnl_differences))
+print(f"Greatest Increase in Profits: {grtincrease}")
+print(f"Greatest Decrease in Profits: {grtdecrease}")
+
+
+
+
