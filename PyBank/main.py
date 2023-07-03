@@ -60,7 +60,7 @@ grtincrease = max(pnl_differences)
 #greatest decrease
 grtdecrease = min(pnl_differences)
 
-#print results
+#print results to terminal
 print("Financial Analysis")
 print("--------------------")    
 print(f"Total months: {months}")
@@ -68,6 +68,24 @@ print(f"Total: {profitnloss}")
 print(f"Average Change: ", average(pnl_differences))
 print(f"Greatest Increase in Profits: {grtincrease}")
 print(f"Greatest Decrease in Profits: {grtdecrease}")
+
+#export results to a file
+
+#output path and file to write to
+export_path = os.path.join("Analysis", "results.txt")
+
+#Open the file in write mode
+with open(export_path, 'w', newline='') as datafile:
+    datafile.write("Financial Analysis")
+    datafile.write("\n--------------------")    
+    datafile.write(f"\nTotal months: {months}")
+    datafile.write(f"\nTotal: {profitnloss}")
+    #datafile.write(f"Average Change: ", average(pnl_differences))
+    datafile.write(f"\nGreatest Increase in Profits: {grtincrease}")
+    datafile.write(f"\nGreatest Decrease in Profits: {grtdecrease}")
+
+
+
 
 
 
