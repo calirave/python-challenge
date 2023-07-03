@@ -52,7 +52,7 @@ def average(numbers):
     total = 0.00
     for number in numbers:
         total += number
-    return total/length
+    return round(total/length,2)
 
 #greatest increase
 grtincrease = max(pnl_differences)
