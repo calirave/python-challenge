@@ -81,7 +81,7 @@ with open(export_path, 'w', newline='') as datafile:
     datafile.write("\n--------------------")    
     datafile.write(f"\nTotal months: {months}")
     datafile.write(f"\nTotal: {profitnloss}")
-    datafile.write(f"Average Change: {average}")
+    datafile.write(f"\nAverage Change: {average}")
     datafile.write(f"\nGreatest Increase in Profits: {grtincrease}")
     datafile.write(f"\nGreatest Decrease in Profits: {grtdecrease}")
 
