@@ -26,8 +26,8 @@ with open(mypath, encoding='UTF-8') as csvfile:
     months = 0
     profitnloss = 0
     avg_pnl_change = 0
+    #create a list for profit and loss values
     pnl_list = []
-    
 
     #loop through the rows to find values
     for row in csvreader:
@@ -46,13 +46,13 @@ for i in range(len(pnl_list)):
         pnl_differences.append(pnldiff)
         #print(pnl_list[i], i, pnldiff)
 
-#find average of the PNL changes
-def average(numbers):
-    length = len(numbers)
-    total = 0.00
-    for number in numbers:
-        total += number
-    return round(total/length,2)
+#find average of PNL changes
+length = len(pnl_differences)
+total = 0.00
+average = 0.00 #variable for average difference
+for i in range(length):
+    total = total + pnl_differences[i]
+average = round(total/length,2)
 
 #greatest increase
 grtincrease = max(pnl_differences)
@@ -65,7 +65,8 @@ print("Financial Analysis")
 print("--------------------")    
 print(f"Total months: {months}")
 print(f"Total: {profitnloss}")
-print(f"Average Change: ", average(pnl_differences))
+#print(f"Average Change: ", average(pnl_differences))
+print(f"Average Change: {average}")
 print(f"Greatest Increase in Profits: {grtincrease}")
 print(f"Greatest Decrease in Profits: {grtdecrease}")
 
@@ -80,7 +81,7 @@ with open(export_path, 'w', newline='') as datafile:
     datafile.write("\n--------------------")    
     datafile.write(f"\nTotal months: {months}")
     datafile.write(f"\nTotal: {profitnloss}")
-    #datafile.write(f"Average Change: ", average(pnl_differences))
+    datafile.write(f"Average Change: {average}")
     datafile.write(f"\nGreatest Increase in Profits: {grtincrease}")
     datafile.write(f"\nGreatest Decrease in Profits: {grtdecrease}")
 
