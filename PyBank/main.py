@@ -1,13 +1,4 @@
 #PyBank
-#Your task is to create a Python script that analyzes the records to calculate each of the following values:
-#The total number of months included in the dataset
-#The net total amount of "Profit/Losses" over the entire period
-#The changes in "Profit/Losses" over the entire period, and then the average of those changes
-#The greatest increase in profits (date and amount) over the entire period
-#The greatest decrease in profits (date and amount) over the entire period
-
-#source file to use is budget_data.csv
-
 #import os and csv modules
 import os
 import csv
@@ -65,7 +56,6 @@ print("Financial Analysis")
 print("--------------------")    
 print(f"Total months: {months}")
 print(f"Total: {profitnloss}")
-#print(f"Average Change: ", average(pnl_differences))
 print(f"Average Change: {average}")
 print(f"Greatest Increase in Profits: {grtincrease}")
 print(f"Greatest Decrease in Profits: {grtdecrease}")
@@ -84,10 +74,3 @@ with open(export_path, 'w', newline='') as datafile:
     datafile.write(f"\nAverage Change: {average}")
     datafile.write(f"\nGreatest Increase in Profits: {grtincrease}")
     datafile.write(f"\nGreatest Decrease in Profits: {grtdecrease}")
-
-
-
-
-
-
-
