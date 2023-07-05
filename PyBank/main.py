@@ -41,7 +41,7 @@ for i in range(len(pnl_list)):
 combined = dict(zip(pnl_changes, pnl_months))
 
 #calculate average change in profit and loss
-average = sum(pnl_changes)/len(pnl_changes)
+average = round(sum(pnl_changes)/len(pnl_changes),2)
 
 #greatest increase
 grtincrease = max(combined)
