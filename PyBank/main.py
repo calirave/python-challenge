@@ -1,12 +1,8 @@
-#PyBank
-#import os and csv modules
 import os
 import csv
 
-#set the source file path
 mypath = os.path.join('Resources', 'budget_data.csv')
 
-#open the file
 with open(mypath, encoding='UTF-8') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
 
@@ -16,49 +12,52 @@ with open(mypath, encoding='UTF-8') as csvfile:
     #initialize some variables for value storage
     months = 0
     profitnloss = 0
-    avg_pnl_change = 0
     #create a list for profit and loss values
-    pnl_list = []
+    pnl_list = list(csvreader)
+    csvfile.close
 
-    #loop through the rows to find values
-    for row in csvreader:
-        months = months +1 #gets the number of months
-        #add to profit and loss the value from the second column in the file
-        profitnloss = profitnloss + float(row[1])
-        #populate the list with values for profit and loss
-        pnl_list.append(float(row[1]))
+#Number of months
+months = len(pnl_list)
 
-#create a list to hold differences in PNL from month to month
-pnl_differences = []
-#use a for loop to populate the above list with PNL changes
+#Total of the profit/loss column
+for row in range(len(pnl_list)):
+    profitnloss += int(pnl_list[row][1]) #iterate through all rows and pull value from 2nd column
+
+#create separate lists with change values
+pnl_changes = []
+pnl_months = []
+current = 0
+previous = 0
+change = 0
 for i in range(len(pnl_list)):
     if i > 0: #ignore the first row because there is no previous value to compare to
-        pnldiff = pnl_list[i] - pnl_list[i-1] 
-        pnl_differences.append(pnldiff)
-        #print(pnl_list[i], i, pnldiff)
+        current = int(pnl_list[i][1])
+        previous = int(pnl_list[i-1][1])
+        change = current - previous
+        pnl_months.append(pnl_list[i][0])
+        pnl_changes.append(change)
 
-#find average of PNL changes
-length = len(pnl_differences)
-total = 0.00
-average = 0.00 #variable for average difference
-for i in range(length):
-    total = total + pnl_differences[i]
-average = round(total/length,2)
+#create a dictionary of months and changes 
+combined = dict(zip(pnl_changes, pnl_months))
+
+#calculate average change in profit and loss
+average = sum(pnl_changes)/len(pnl_changes)
 
 #greatest increase
-grtincrease = max(pnl_differences)
-
+grtincrease = max(combined)
+maxmonth = combined.get(grtincrease)
 #greatest decrease
-grtdecrease = min(pnl_differences)
+grtdecrease = min(combined)
+minmonth = combined.get(grtdecrease)
 
 #print results to terminal
 print("Financial Analysis")
 print("--------------------")    
 print(f"Total months: {months}")
-print(f"Total: {profitnloss}")
-print(f"Average Change: {average}")
-print(f"Greatest Increase in Profits: {grtincrease}")
-print(f"Greatest Decrease in Profits: {grtdecrease}")
+print(f"Total: ${profitnloss}")
+print(f"Average Change: ${average}")
+print(f"Greatest Increase in Profits: {maxmonth} ${grtincrease}")
+print(f"Greatest Decrease in Profits: {minmonth} ${grtdecrease}")
 
 #export results to a file
 
@@ -70,7 +69,7 @@ with open(export_path, 'w', newline='') as datafile:
     datafile.write("Financial Analysis")
     datafile.write("\n--------------------")    
     datafile.write(f"\nTotal months: {months}")
-    datafile.write(f"\nTotal: {profitnloss}")
-    datafile.write(f"\nAverage Change: {average}")
-    datafile.write(f"\nGreatest Increase in Profits: {grtincrease}")
-    datafile.write(f"\nGreatest Decrease in Profits: {grtdecrease}")
+    datafile.write(f"\nTotal: ${profitnloss}")
+    datafile.write(f"\nAverage Change: ${average}")
+    datafile.write(f"\nGreatest Increase in Profits: {maxmonth} ${grtincrease}")
+    datafile.write(f"\nGreatest Decrease in Profits: {minmonth} ${grtdecrease}")

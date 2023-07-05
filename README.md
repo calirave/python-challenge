@@ -7,6 +7,8 @@ The data analyzed is in the Resources folder and the results are exported to a T
 Some resources used:
 https://www.pythontutorial.net/python-basics/python-write-text-file/
 https://docs.python.org/3.10/library/csv.html
+https://learnpython.com/blog/read-csv-into-list-python/
+https://www.geeksforgeeks.org/python-convert-two-lists-into-a-dictionary/
 
 PyPoll is used to analyze election results, count the votes each candidate received, and identify the winner.
 The data analyzed is in the Resources folder and the results are exported to a TXT file in the Analysis folder.
